@@ -1,0 +1,6 @@
+scalar UUID
+scalar JSON
+scalar Date
+scalar Void
+
+#Generate schema using Tuql and paste here

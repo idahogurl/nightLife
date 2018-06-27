@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 1 version", "not dead", "> 1%"]
+      }
+    }],
+    "stage-2",
+    "react"
+  ],
+  "plugins": ["transform-runtime"],
+  "sourceMaps": true,
+}
