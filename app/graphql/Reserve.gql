@@ -1,0 +1,6 @@
+mutation toggleReservation($id: String!, $userId: String!) {
+  toggleReservation(id: $id, userId: $userId) {
+    id
+    rsvpCount
+  }
+}

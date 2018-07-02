@@ -5,9 +5,9 @@ import path from 'path';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import fs from 'fs';
 import { makeExecutableSchema } from 'graphql-tools';
-import getUser from './getUser';
 import resolvers from './graphql/resolvers';
 import processLogin from './login';
+import yelpRequest from './yelp';
 
 require('dotenv').config();
 
@@ -23,8 +23,10 @@ app.use(bodyParser.json());
 const typeDefs = fs.readFileSync(path.resolve(__dirname, 'graphql/schema.gql'), 'utf8');
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-app.use('/graphql', getUser, graphqlExpress(req => ({ context: req.user, schema })));
-app.get('/graphiql', getUser, graphiqlExpress({
+app.use('/graphql', graphqlExpress(() => ({ schema })));
+
+// hide endpoint in production?
+app.get('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
 }));
 
@@ -37,6 +39,10 @@ app.use('/logout', (req, res, next) => {
     res.clearCookie('token');
   }
   next();
+});
+
+app.get('/yelp', (req, res, next) => {
+  yelpRequest(req, res, next);
 });
 
 // Always return the main index.html, so react-router renders the route in the client

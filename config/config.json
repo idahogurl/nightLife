@@ -1,3 +1,12 @@
-"production": {
-  "use_env_variable": "DATABASE_URL"
+{
+  "development": {
+    "username": "username",
+    "password": "password",
+    "database": "database",
+    "storage": "./dev.sqlite3",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL"
+  }
 }

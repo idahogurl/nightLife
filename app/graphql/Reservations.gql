@@ -1,0 +1,6 @@
+query getReservations($ids: [String]!) {
+  reservations(ids: $ids) {
+    id
+    rsvpCount
+  }
+}

@@ -3,4 +3,19 @@ scalar JSON
 scalar Date
 scalar Void
 
-#Generate schema using Tuql and paste here
+type Mutation {
+  toggleReservation(id: String!, userId: String!): Reservation
+}
+
+type Query {
+  reservations(ids: [String]!): [Reservation]
+
+  reservation(
+    id: String
+  ): Reservation
+}
+
+type Reservation {
+  id: String
+  rsvpCount: Int
+}
