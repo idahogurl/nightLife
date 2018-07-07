@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Container from '../components/Container';
+import CoverImage from '../components/CoverImage';
 import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import Results from '../components/Results';
@@ -51,25 +53,50 @@ class IndexScreen extends Component {
 
   render() {
     const { location, results, userId } = this.state;
+    const now = new Date();
 
     return (
-      <main className="container-fluid">
-        {new Date().toDateString()}
-        Plans tonight? See which bars are hoppin tonight and RSVP ahead of time!
-        Remember: take a cab and drink responsibily.
-
-        {userId ? <LogoutButton onLogout={this.onLogout} /> :
-        <LoginButton onLogin={this.onLogin} />}
-
-        <form className="form-group">
-          <label className="form-label" htmlFor="location">Location</label>
-          <input id="location" type="text" className="form-control" onChange={this.onChange} value={location} required />
-          <button type="submit" className="btn btn-primary" onClick={this.onClick}>Go</button>
-        </form>
-        <section>
-          {results.length ? <Results results={results} userId={userId} /> : null}
-        </section>
-      </main>);
+      <Container backgroundColor="black">
+        <header className="mb-4">
+          <img src="images/logo.svg" alt="Night Life Logo" />
+          <div className="float-right text-white">
+            {userId ? <LogoutButton onLogout={this.onLogout} /> : <LoginButton onLogin={this.onLogin} />}
+          </div>
+        </header>
+        <main>
+          <CoverImage url="../images/257.jpg" height="25em" positionY="0" />
+          <Container backgroundColor="white" width="100%">
+            <h1 className="text-center">Plans tonight?</h1>
+            <p className="text-center">
+              See which bars are hoppin&apos; tonight and RSVP ahead of time!
+              <br />Remember: take a cab and drink responsibly.
+            </p>
+            <div className="dropdown-divider" />
+            <form className="form-inline mt-4">
+              <div className="form-group">
+                <label className="form-label mr-2" htmlFor="location">Location:</label>
+                <input id="location" type="text" className="form-control mr-2" onChange={this.onChange} value={location} required />
+              </div>
+              &nbsp;<button type="submit" className="btn btn-primary" onClick={this.onClick}>Go</button>
+            </form>
+            <section className="mt-4">
+              {results.length ?
+                <span>
+                  <h2 className="h3">Results for {`${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`}</h2>
+                  <Results results={results} userId={userId} />
+                </span> : null}
+            </section>
+          </Container>
+        </main>
+        <footer>
+          <small>
+            <a href="https://www.freepik.com/free-photo/alcohol-conceptual-image_1253907.htm">
+              Photo Designed by Freepik
+            </a>
+          </small>
+        </footer>
+      </Container>
+    );
   }
 }
 

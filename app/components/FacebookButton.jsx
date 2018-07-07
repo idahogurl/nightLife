@@ -11,7 +11,7 @@ const FacebookButton = function FacebookButton(props) {
   return (
     <FelaComponent render={() => (
       <button className="btn" style={style} onClick={props.onClick}>
-        <i className="fa fa-2x fa-facebook-official align-middle mr-2" />
+        <i className="fa fa-facebook-official align-middle mr-2" />
         <span className="align-middle">
           {props.children}
         </span>

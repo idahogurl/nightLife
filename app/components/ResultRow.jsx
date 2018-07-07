@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AWN from 'awesome-notifications';
 
@@ -7,7 +7,11 @@ import ResultImage from './ResultImage';
 import onError from '../utils/onError';
 import GET_RESERVATIONS from '../graphql/Reservations.gql';
 
-class ResultRow extends PureComponent {
+class ResultRow extends Component {
+  state = {
+    isSubmitting: false,
+  }
+
   onClick = this.onClick.bind(this)
 
   async onClick() {
@@ -25,6 +29,7 @@ class ResultRow extends PureComponent {
       return;
     }
 
+    this.setState({ isSubmitting: true });
     try {
       await mutate({
         variables: { id, userId },
@@ -46,8 +51,10 @@ class ResultRow extends PureComponent {
           cache.writeQuery(args);
         },
       });
+      this.setState({ isSubmitting: false });
     } catch (e) {
       onError(e);
+      this.setState({ isSubmitting: false });
     }
   }
 
@@ -58,6 +65,8 @@ class ResultRow extends PureComponent {
       },
       rsvpCount,
     } = this.props;
+
+    const { isSubmitting: disabled } = this.state;
 
     return (
       <tr>
@@ -74,8 +83,8 @@ class ResultRow extends PureComponent {
               </p>
             </div>
             <div className="col">
-              <button className="btn btn-primary" onClick={this.onClick}>
-                {rsvpCount} Going
+              <button className="btn btn-primary" onClick={this.onClick} disabled={disabled}>
+                {disabled ? <span><i className="fa fa-spinner fa-spin text-center" /> Saving</span> : `${rsvpCount} Going`}
               </button>
             </div>
           </div>

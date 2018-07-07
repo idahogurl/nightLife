@@ -3,7 +3,6 @@ import { Op } from 'sequelize';
 
 import { sequelize, Reservation } from '../models';
 
-
 const parseWhere = function parseWhere(where) {
   if (where) {
     return JSON.parse(where);
@@ -19,8 +18,6 @@ export default {
   Void: GraphQLToolTypes.Void({ name: 'Void' }),
   Mutation: {
     toggleReservation: async (_, { id, userId }) => {
-      // TODO: Wrap in transaction
-      const transaction = await sequelize.transaction();
       try {
         const reservation = await Reservation.findOne({
           where: {
@@ -33,25 +30,35 @@ export default {
               ),
             ],
           },
-        }, { transaction });
+        });
 
         if (reservation) {
-          await Reservation.destroy({ where: { id, userId } }, { transaction });
+          await Reservation.destroy({ where: { id, userId } });
         } else {
-          await Reservation.create({ id, userId, createdAt: new Date() }, { transaction });
+          await Reservation.create({ id, userId, createdAt: new Date() });
         }
-        transaction.commit();
 
         const reservationCount = await Reservation.findOne({
           attributes: ['id', [sequelize.fn('COUNT', sequelize.col('user_id')), 'rsvpCount']],
-          where: { id },
+          where: {
+            [Op.and]: [
+              { id },
+              sequelize.where(
+                sequelize.fn('DATE', sequelize.col('created_at')),
+                sequelize.literal('CURRENT_DATE'),
+              ),
+            ],
+          },
+          group: ['id'],
+          raw: true,
         });
 
-        const { rsvpCount } = reservationCount.dataValues;
-        return { id, rsvpCount };
-      } catch (e) {
-        transaction.rollback();
+        if (reservationCount === null) {
+          return { id, rsvpCount: 0 };
+        }
 
+        return reservationCount;
+      } catch (e) {
         console.error(e);
         throw e;
       }
