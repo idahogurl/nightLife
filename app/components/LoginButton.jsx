@@ -6,7 +6,7 @@ import FacebookButton from './FacebookButton';
 const LoginButton = function LoginButton(props) {
   return (
     <FacebookLogin
-      appId="445598382444876"
+      appId="323585701513857"
       callback={props.onLogin}
       render={({ isWorking, isLoading, onClick }) => (
         <FacebookButton onClick={onClick}>
