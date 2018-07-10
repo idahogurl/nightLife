@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FelaComponent } from 'react-fela';
+import classNames from 'classnames';
 
 const style = {
   backgroundColor: '#3B5998',
@@ -9,13 +10,15 @@ const style = {
 
 const FacebookButton = function FacebookButton(props) {
   return (
-    <FelaComponent render={() => (
-      <button className="btn" style={style} onClick={props.onClick}>
-        <i className="fa fa-facebook-official align-middle mr-2" />
-        <span className="align-middle">
-          {props.children}
-        </span>
-      </button>
+    <FelaComponent
+      style={style}
+      render={({ className }) => (
+        <button className={classNames('btn', className)} onClick={props.onClick}>
+          <i className="fa fa-facebook-official align-middle mr-2" />
+          <span className="align-middle">
+            {props.children}
+          </span>
+        </button>
       )
     }
     />);

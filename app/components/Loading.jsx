@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FelaComponent } from 'react-fela';
+import classNames from 'classnames';
 
 const Loading = function Loading(props) {
   const { container } = props;
@@ -17,7 +18,7 @@ const Loading = function Loading(props) {
 
   return (
     <FelaComponent style={style} render={container === 'page' ? 'div' : 'span'}>
-      <i className={`fa ${container === 'page' ? 'fa-4x' : null} fa-spinner fa-spin`} />
+      <i className={classNames('fa fa-spinner fa-spin', { 'fa-4x': container === 'page' })} />
     </FelaComponent>
   );
 };

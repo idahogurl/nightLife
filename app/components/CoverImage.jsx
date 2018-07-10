@@ -13,7 +13,7 @@ const CoverImage = function CoverImage(props) {
   };
 
   return (
-    <FelaComponent render={() => (<div style={style} />)} />);
+    <FelaComponent style={style} />);
 };
 
 CoverImage.propTypes = {

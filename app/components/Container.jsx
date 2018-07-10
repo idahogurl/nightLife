@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FelaComponent } from 'react-fela';
-
+import classNames from 'classnames';
 
 const Container = function Container(props) {
   const style = {
@@ -10,10 +10,12 @@ const Container = function Container(props) {
     width: props.width,
   };
   return (
-    <FelaComponent render={() => (
-      <div className="container" style={style}>
-        {props.children}
-      </div>)
+    <FelaComponent
+      style={style}
+      render={({ className }) => (
+        <div className={classNames('container', className)}>
+          {props.children}
+        </div>)
       }
     />);
 };
