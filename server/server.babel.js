@@ -6,7 +6,6 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import fs from 'fs';
 import { makeExecutableSchema } from 'graphql-tools';
 import resolvers from './graphql/resolvers';
-import processLogin from './login';
 import yelpRequest from './yelp';
 
 require('dotenv').config();
@@ -30,23 +29,15 @@ app.get('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
 }));
 
-app.post('/auth/facebook', (req, res, next) => {
-  processLogin(req, res, next);
-});
-
-app.use('/logout', (req, res, next) => {
-  if (req.signedCookies.token) {
-    res.clearCookie('token');
-  }
-  next();
-});
-
 app.get('/yelp', (req, res, next) => {
   yelpRequest(req, res, next);
 });
 
 // Always return the main index.html, so react-router renders the route in the client
 app.get('*', (req, res) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    res.redirect(302, `https://${req.hostname}${req.originalUrl}`);
+  }
   res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 });
 

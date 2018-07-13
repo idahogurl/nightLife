@@ -2159,12 +2159,6 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-css-in-js-utils@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.0.tgz#5af1dd70f4b06b331f48d22a3d86e0786c0b9435"
-  dependencies:
-    hyphenate-style-name "^1.0.2"
-
 css-in-js-utils@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz#3b472b398787291b47cfe3e44fecfdd9e914ba99"
@@ -3011,28 +3005,6 @@ fela-dom@^7.0.8:
     fast-loops "^1.0.0"
     fela-utils "^8.0.7"
 
-fela-plugin-extend@^6.0.6:
-  version "6.0.6"
-  resolved "https://registry.yarnpkg.com/fela-plugin-extend/-/fela-plugin-extend-6.0.6.tgz#20542111b5caff2a0d4dfb9051c0ed3cb8b60dc2"
-  dependencies:
-    css-in-js-utils "^2.0.0"
-    fast-loops "^1.0.0"
-    fela-plugin-remove-undefined "^5.0.20"
-    isobject "^3.0.1"
-
-fela-plugin-named-media-query@^5.0.13:
-  version "5.0.13"
-  resolved "https://registry.yarnpkg.com/fela-plugin-named-media-query/-/fela-plugin-named-media-query-5.0.13.tgz#a597017dffe489455383dcfb054ee93bcbfdec81"
-  dependencies:
-    fela-utils "^7.0.5"
-
-fela-plugin-remove-undefined@^5.0.20:
-  version "5.0.20"
-  resolved "https://registry.yarnpkg.com/fela-plugin-remove-undefined/-/fela-plugin-remove-undefined-5.0.20.tgz#528689939fcf900c49a239e95ecff849deb46a74"
-  dependencies:
-    fela-utils "^8.0.7"
-    isobject "^3.0.1"
-
 fela-tools@^5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/fela-tools/-/fela-tools-5.1.6.tgz#cecdf8ad865adc59aa5ce2952f9daec761bdd740"
@@ -3041,12 +3013,6 @@ fela-tools@^5.1.6:
     fast-loops "^1.0.0"
     fela "^6.1.8"
     fela-utils "^8.0.7"
-
-fela-utils@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.yarnpkg.com/fela-utils/-/fela-utils-7.0.5.tgz#62397db8abf8294bb160ba7575b31d68495283b2"
-  dependencies:
-    css-in-js-utils "2.0.0"
 
 fela-utils@^8.0.7:
   version "8.0.7"
