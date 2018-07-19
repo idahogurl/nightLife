@@ -4,6 +4,7 @@ export default function (req, res, next) {
   console.log('secure', req.secure);
   console.log('protocol', req.protocol);
   console.log('header', req.headers['X-Forwarded-Proto']);
+  debugger;
   if (process.env.NODE_ENV === 'production' && req.url !== '/graphql' && !req.secure) {
     const sslUrl = `https://${req.hostname}${req.url}`;
     console.log('redirect', sslUrl);
