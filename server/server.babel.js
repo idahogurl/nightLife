@@ -39,6 +39,7 @@ router.get('/yelp', (req, res, next) => {
 
 // Always return the main index.html, so react-router renders the route in the client
 router.get('*', (req, res, next) => {
+  console.log('here');
   sslRedirect(req, res, next);
   res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 });
