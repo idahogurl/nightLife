@@ -1,1 +1,1 @@
-web: node --inspect-brk=9090 server.js
+web: npm start

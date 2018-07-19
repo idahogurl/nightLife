@@ -52,6 +52,10 @@ class IndexScreen extends Component {
   }
 
   render() {
+    if (window.location.protocol === 'http:') {
+      window.location.href = window.location.href.replace('http', 'https');
+    }
+    
     const { location, results, userId } = this.state;
     const now = new Date();
 
