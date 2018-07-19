@@ -1,1 +1,1 @@
-web: node --debug=9090 server.js
+web: node --inspect-brk=9090 server.js
