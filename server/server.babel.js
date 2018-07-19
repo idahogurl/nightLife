@@ -21,7 +21,7 @@ app.use('/', express.static('public'));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(sslRedirect());
+app.use(sslRedirect);
 
 const typeDefs = fs.readFileSync(path.resolve(__dirname, 'graphql/schema.gql'), 'utf8');
 const schema = makeExecutableSchema({ typeDefs, resolvers });
