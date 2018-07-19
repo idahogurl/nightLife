@@ -52,7 +52,7 @@ class IndexScreen extends Component {
   }
 
   render() {
-    if (window.location.protocol === 'http:') {
+    if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
       window.location.href = window.location.href.replace('http', 'https');
     }
     
