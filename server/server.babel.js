@@ -42,7 +42,7 @@ app.get('*', (req, res, next) => {
   console.log('here');
   debugger;
   sslRedirect(req, res, next);
-  // res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 });
 
 app.listen(port, () => {
