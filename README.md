@@ -1,4 +1,4 @@
-#Night Life Website#
+#Night Life Website
 
 **Description**: 
 se Yelp's API, be sure to mention so in your app.
