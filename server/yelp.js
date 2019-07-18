@@ -6,7 +6,7 @@ dotenv.config();
 export default async function yelpRequest(req, res, next) {
   try {
     const apiKey = process.env.YELP_API_KEY;
-    
+
     const { term, location } = req.query;
     const searchRequest = {
       term,
