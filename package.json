@@ -5,7 +5,7 @@
   "scripts": {
     "webpack-watch": "webpack -d --watch",
     "express-server": "nodemon server",
-    "dev": "concurrent --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
+    "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
     "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

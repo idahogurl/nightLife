@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 import Container from '../components/Container';
 import CoverImage from '../components/CoverImage';
 import LoginButton from '../components/LoginButton';
@@ -13,10 +14,10 @@ class IndexScreen extends Component {
     location: 'Idaho Falls',
     results: [],
     userId: currentUser || null,
-  }
+  };
 
-  onChange = this.onChange.bind(this)
-  onClick = this.onClick.bind(this)
+  onChange = this.onChange.bind(this);
+  onClick = this.onClick.bind(this);
   onLogout = this.onLogout.bind(this);
   onLogin = this.onLogin.bind(this);
 
@@ -41,13 +42,10 @@ class IndexScreen extends Component {
     const { location } = this.state;
     this.setState({ results: [] });
 
-    const { data } = await axios.get(
-      '/yelp',
-      {
-        headers: { 'Cache-Control': 'no-cache' },
-        params: { term: 'bars', location },
-      },
-    );
+    const { data } = await axios.get('/yelp', {
+      headers: { 'Cache-Control': 'no-cache' },
+      params: { term: 'bars', location },
+    });
     this.setState({ results: data[1] });
   }
 
@@ -55,16 +53,20 @@ class IndexScreen extends Component {
     if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
       window.location.href = window.location.href.replace('http', 'https');
     }
-    
+
     const { location, results, userId } = this.state;
     const now = new Date();
 
     return (
       <Container backgroundColor="black">
-        <header className="mb-4">
-          <img src="images/logo.svg" alt="Night Life Logo" />
-          <div className="float-right text-white">
-            {userId ? <LogoutButton onLogout={this.onLogout} /> : <LoginButton onLogin={this.onLogin} />}
+        <header className="mt-4 mb-4">
+          <img src="images/logo.svg" alt="Night Life Logo" className="mb-4" />
+          <div>
+            {userId ? (
+              <LogoutButton onLogout={this.onLogout} />
+            ) : (
+              <LoginButton onLogin={this.onLogin} />
+            )}
           </div>
         </header>
         <main>
@@ -73,26 +75,42 @@ class IndexScreen extends Component {
             <h1 className="text-center">Plans tonight?</h1>
             <p className="text-center">
               See which bars are hoppin&apos; tonight and RSVP ahead of time!
-              <br />Remember: take a cab and drink responsibly.
+              <br />
+              Remember: take a cab and drink responsibly.
             </p>
             <div className="dropdown-divider" />
-            <form className="form-inline mt-4">
-              <div className="form-group">
-                <label className="form-label mr-2" htmlFor="location">Location:</label>
-                <input id="location" type="text" className="form-control mr-2" onChange={this.onChange} value={location} required />
+            <form className="form-inline mt-4 ml-3 align-items-end">
+              <div>
+                <label className="form-label mr-2 justify-content-start" htmlFor="location">
+                  Location:
+                </label>
+                <input
+                  id="location"
+                  type="text"
+                  className="form-control mr-2"
+                  onChange={this.onChange}
+                  value={location}
+                  required
+                />
               </div>
-              &nbsp;<button type="submit" className="btn btn-primary" onClick={this.onClick}>Go</button>
+              &nbsp;
+              <button type="submit" className="btn btn-primary mt-2 mt-sm-0" onClick={this.onClick}>
+                Go
+              </button>
             </form>
-            <section className="mt-4">
-              {results.length ?
+            <section className="mt-5">
+              {results.length ? (
                 <span>
-                  <h2 className="h3">Results for {`${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`}</h2>
+                  <h2 className="h3 ml-3 mb-2">
+                    Results for {`${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`}
+                  </h2>
                   <Results results={results} userId={userId} />
-                </span> : null}
+                </span>
+              ) : null}
             </section>
           </Container>
         </main>
-        <footer>
+        <footer className="mt-2 mb-2">
           <small>
             <a href="https://www.freepik.com/free-photo/alcohol-conceptual-image_1253907.htm">
               Photo Designed by Freepik

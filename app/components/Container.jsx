@@ -6,18 +6,16 @@ import classNames from 'classnames';
 const Container = function Container(props) {
   const style = {
     backgroundColor: props.backgroundColor,
-    padding: '1em',
     width: props.width,
   };
   return (
     <FelaComponent
       style={style}
       render={({ className }) => (
-        <div className={classNames('container', className)}>
-          {props.children}
-        </div>)
-      }
-    />);
+        <div className={classNames('container p-1', className)}>{props.children}</div>
+      )}
+    />
+  );
 };
 
 Container.propTypes = {

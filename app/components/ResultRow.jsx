@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FelaComponent } from 'react-fela';
+import classNames from 'classnames';
 import AWN from 'awesome-notifications';
 
 import ResultImage from './ResultImage';
@@ -7,16 +9,25 @@ import ResultImage from './ResultImage';
 import onError from '../utils/onError';
 import GET_RESERVATIONS from '../graphql/Reservations.gql';
 
+const stripeStyle = {
+  backgroundColor: 'gainsboro',
+  borderTop: '1px solid darkgray',
+  borderBottom: '1px solid darkgray',
+};
+
 class ResultRow extends Component {
   state = {
     isSubmitting: false,
-  }
+  };
 
-  onClick = this.onClick.bind(this)
+  onClick = this.onClick.bind(this);
 
   async onClick() {
     const {
-      result: { id }, userId, mutate, ids,
+      result: { id },
+      userId,
+      mutate,
+      ids,
     } = this.props;
 
     if (!userId) {
@@ -63,33 +74,51 @@ class ResultRow extends Component {
       result: {
         image_url: imageUrl, name, rating, review_count: reviewCount,
       },
+      stripeRow,
       rsvpCount,
     } = this.props;
 
     const { isSubmitting: disabled } = this.state;
-
     return (
-      <tr>
-        <td className="align-middle text-center" style={{ width: '100px' }}>
-          {imageUrl ? <ResultImage src={imageUrl} /> : <i className="fa fa-3x fa-picture-o" />}
-        </td>
-        <td>
-          <div className="row">
-            <div className="col-4">
-              <strong>{name}</strong>
-              <p>
-              Rating: {rating}<br />
-              Reviews: {reviewCount}
-              </p>
-            </div>
-            <div className="col">
-              <button className="btn btn-primary" onClick={this.onClick} disabled={disabled}>
-                {disabled ? <span><i className="fa fa-spinner fa-spin text-center" /> Saving</span> : `${rsvpCount} Going`}
-              </button>
+      <FelaComponent
+        style={stripeStyle}
+        render={({ className }) => (
+          <div className={classNames('row', { [className]: stripeRow })}>
+            <div className="col pt-2 pb-2">
+              <div className="row">
+                <div className="col-12">
+                  <strong>{name}</strong>
+                </div>
+              </div>
+              <div className="row mt-2 mb-2">
+                <div className="col col-md-3 col-lg-2">
+                  {imageUrl ? (
+                    <ResultImage src={imageUrl} />
+                  ) : (
+                    <ResultImage src="images/no-photo.png" />
+                  )}
+                </div>
+                <div className="col">
+                  <p>
+                    Rating: {rating}
+                    <br />
+                    Reviews: {reviewCount}
+                  </p>
+                  <button className="btn btn-primary" onClick={this.onClick} disabled={disabled}>
+                    {disabled ? (
+                      <span>
+                        <i className="fa fa-spinner fa-spin text-center" /> Saving
+                      </span>
+                    ) : (
+                      `${rsvpCount} Going`
+                    )}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </td>
-      </tr>
+        )}
+      />
     );
   }
 }
@@ -105,6 +134,7 @@ ResultRow.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
   mutate: PropTypes.func.isRequired,
   rsvpCount: PropTypes.number.isRequired,
+  stripeRow: PropTypes.bool.isRequired,
   userId: PropTypes.string,
 };
 

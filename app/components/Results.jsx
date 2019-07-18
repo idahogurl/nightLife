@@ -14,36 +14,40 @@ const Results = function Results(props) {
       {mutate => (
         <Query query={GET_RESERVATIONS} variables={{ ids }} fetchPolicy="cache-and-network">
           {({ loading, error, data: { reservations } }) => {
-          if (loading) return <i className="fa fa-3x fa-spinner fa-spin" />;
+            if (loading) return <i className="fa fa-3x fa-spinner fa-spin" />;
 
-          if (error) {
-            onError(error);
-            return null;
-          }
+            if (error) {
+              onError(error);
+              return null;
+            }
 
-          return (
-            <table className="table table-striped">
-              <tbody>
-                {props.results.map((r) => {
-                const location = reservations.length ?
-                  reservations.find(d => d.id === r.id) : false;
-                const rsvpCount = location ? location.rsvpCount : 0;
+            return (
+              <div className="container">
+                {props.results.map((r, i) => {
+                  const location = reservations.length
+                    ? reservations.find(d => d.id === r.id)
+                    : false;
+                  const rsvpCount = location ? location.rsvpCount : 0;
 
-                return (<ResultRow
-                  result={r}
-                  mutate={mutate}
-                  ids={ids}
-                  userId={props.userId}
-                  rsvpCount={rsvpCount}
-                  key={r.id}
-                />);
-              })}
-              </tbody>
-            </table>);
-      }}
-        </Query>)
-  }
-    </Mutation>);
+                  return (
+                    <ResultRow
+                      result={r}
+                      mutate={mutate}
+                      ids={ids}
+                      userId={props.userId}
+                      rsvpCount={rsvpCount}
+                      stripeRow={i % 2 === 0}
+                      key={r.id}
+                    />
+                  );
+                })}
+              </div>
+            );
+          }}
+        </Query>
+      )}
+    </Mutation>
+  );
 };
 
 Results.propTypes = {
