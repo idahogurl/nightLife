@@ -50,7 +50,7 @@
     "sequelize-heroku": "^2.0.0",
     "uuid": "^3.2.1",
     "webpack": "4.19.0",
-    "webpack-cli": "3.0.4",
+    "webpack-cli": "3.1.0",
     "yelp-fusion": "^2.0.3"
   },
   "devDependencies": {
