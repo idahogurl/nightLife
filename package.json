@@ -39,7 +39,7 @@
     "merge-graphql-schemas": "^1.5.1",
     "pg": "^7.4.3",
     "prop-types": "^15.6.1",
-    "react": "^16.4.1",
+    "react": "^16.5.0",
     "react-apollo": "^2.1.6",
     "react-dom": "^16.4.2",
     "react-facebook-login": "^4.0.1",
