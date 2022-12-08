@@ -30,7 +30,7 @@
     "cookie-parser": "^1.4.3",
     "dot-env": "0.0.1",
     "dotenv": "^5.0.1",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "fela": "^6.1.8",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
